@@ -4,7 +4,13 @@ const navLinks = nav.querySelector('#nav-links');
 const markup = `${navItems.map(listItem => `<li><a href="${listItem.link}">${listItem.label}</a></li>`).join('')}`;
 navLinks.innerHTML = markup;
 
-// const logo = document.querySelector('#main ul li');
+
+
+const logo = document.querySelector('.logo');
+logo.addEventListener('click', function(){
+  document.body.classList.toggle('showmenu');
+  event.preventDefault();
+})
 // logo.classList.add('logo');
 // logo.firstChild.innerHTML = '<img src="img/logo.svg" />';
 
@@ -24,6 +30,7 @@ function fixNav() {
 }
 
 // hashes
+/*
 const siteWrap = document.querySelector('.site-wrap');
 
 window.onhashchange = function() {
@@ -34,6 +41,37 @@ window.onhashchange = function() {
   siteWrap.innerHTML = `
     <h2>${newContent[0].header}</h2>
     ${newContent[0].content}
+  `
+}*/
+const siteWrap = document.querySelector('.site-wrap');
+
+window.onload = function(){
+  let newContent;
+  if(!window.location.hash){
+    newContent = navItems.filter(
+      navItem => navItem.link == '#watchlist'
+    )
+  } else {
+    newContent = navItems.filter(
+      navItem => navItem.link == window.location.hash
+    )
+  }
+  renderPage(newContent)
+}
+
+window.onhashchange = function() {
+  let newloc = window.location.hash;
+  let newContent = navItems.filter(
+    navItem => navItem.link == newloc
+  )
+  renderPage(newContent);
+  window.scrollTo(0,0);
+}
+
+function renderPage(newContent){
+  siteWrap.innerHTML = `
+  <h2>${newContent[0].header}</h2>
+  ${newContent[0].content}
   `
 }
 

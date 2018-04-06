@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "browser-sync start --server \"app\" --files \"app\"",
     "sassy": "node-sass --watch \"scss\"  --output \"app/css/\" --source-map true",
-    "boom!": "concurrently \"npm run start\" \"npm run sassy\" "
+    "babel": "babel app/js/main.js --watch --source-maps --out-file app/js/main-compiled.js",
+    "boom!": "concurrently \"npm run start\" \"npm run babel\" "
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,15 @@
   },
   "homepage": "https://github.com/front-end-intermediate/session-2#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "browser-sync": "^2.23.6",
     "concurrently": "^3.5.1",
     "node-sass": "^4.8.3"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }
